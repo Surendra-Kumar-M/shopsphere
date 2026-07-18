@@ -1,0 +1,63 @@
+import { KeyboardAvoidingView, Platform } from "react-native";
+
+import { useTheme } from "@emotion/react";
+
+import * as S from "./styles";
+
+import { ScreenProps } from "./types";
+
+export default function Screen({
+  children,
+
+  scrollable = false,
+
+  safeArea = true,
+
+  padding = true,
+
+  keyboardAvoiding = true,
+
+  backgroundColor = "background",
+
+  contentContainerStyle,
+
+  ...props
+}: ScreenProps) {
+  const theme = useTheme();
+
+  const content = scrollable ? (
+    <S.ScrollContainer
+      {...props}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={[
+        {
+          flexGrow: 1,
+        },
+        contentContainerStyle,
+      ]}>
+      <S.Container padding={padding}>{children}</S.Container>
+    </S.ScrollContainer>
+  ) : (
+    <S.Container padding={padding}>{children}</S.Container>
+  );
+
+  const wrapped = keyboardAvoiding ? (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}>
+      {content}
+    </KeyboardAvoidingView>
+  ) : (
+    content
+  );
+
+  if (!safeArea) {
+    return wrapped;
+  }
+
+  return (
+    <S.SafeContainer background={theme.colors[backgroundColor]}>
+      {wrapped}
+    </S.SafeContainer>
+  );
+}
