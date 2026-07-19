@@ -1,5 +1,10 @@
 import { PressableProps } from "react-native";
-import { ReactNode } from "react";
+
+import { LucideIcon } from "lucide-react-native";
+
+import { AppTheme } from "@/theme";
+
+export type ThemeColor = keyof AppTheme["colors"];
 
 export type ButtonVariant =
   | "primary"
@@ -10,46 +15,50 @@ export type ButtonVariant =
 
 export type ButtonSize = "sm" | "md" | "lg";
 
-import { LucideIcon } from "lucide-react-native";
+export interface ButtonProps extends Omit<PressableProps, "children"> {
+  title?: string;
 
-export interface ButtonProps extends PressableProps {
-  title: string;
+  icon?: LucideIcon;
+
+  leftIcon?: LucideIcon;
+
+  rightIcon?: LucideIcon;
 
   variant?: ButtonVariant;
+
   size?: ButtonSize;
 
   loading?: boolean;
+
   disabled?: boolean;
+
   fullWidth?: boolean;
 
-  leftIcon?: LucideIcon;
-  rightIcon?: LucideIcon;
+  rounded?: boolean;
 }
 
-import { AppTheme } from "@/theme";
-
-type ThemeColor = keyof AppTheme["colors"];
+type ThemeKey = keyof AppTheme["colors"];
 
 export const BUTTON_SIZES = {
   sm: {
     height: 40,
     paddingHorizontal: 16,
     fontSize: 14,
-    iconSize: 16,
+    iconSize: 18,
   },
 
   md: {
     height: 48,
     paddingHorizontal: 20,
     fontSize: 16,
-    iconSize: 18,
+    iconSize: 20,
   },
 
   lg: {
     height: 56,
     paddingHorizontal: 24,
     fontSize: 18,
-    iconSize: 20,
+    iconSize: 22,
   },
 } as const;
 
@@ -86,8 +95,8 @@ export const BUTTON_VARIANTS = {
 } satisfies Record<
   ButtonVariant,
   {
-    background: ThemeColor;
-    text: ThemeColor;
-    border: ThemeColor;
+    background: ThemeKey;
+    text: ThemeKey;
+    border: ThemeKey;
   }
 >;

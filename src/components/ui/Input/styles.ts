@@ -1,6 +1,10 @@
 import styled from "@emotion/native";
+import { Pressable } from "react-native";
+import { Theme } from "@emotion/react";
 
 import AppText from "../AppText";
+
+import { InputStatus, InputVariantStyle } from "./types";
 
 export const Container = styled.View<{
   fullWidth: boolean;
@@ -16,20 +20,20 @@ export const HelperText = styled(AppText)(({ theme }) => ({
   marginTop: theme.spacing.xs,
 }));
 
-export const InputWrapper = styled.View<{
+export const InputWrapper = styled(Pressable)<{
+  height: number;
   borderColor: string;
   backgroundColor: string;
-  height: number;
-}>(({ theme, borderColor, backgroundColor, height }) => ({
+}>(({ theme, height, borderColor, backgroundColor }) => ({
   height,
 
   flexDirection: "row",
 
   alignItems: "center",
 
-  borderRadius: theme.radius.md,
-
   borderWidth: 1,
+
+  borderRadius: theme.radius.md,
 
   borderColor,
 
@@ -48,33 +52,37 @@ export const StyledInput = styled.TextInput<{
   fontSize,
 
   paddingVertical: 0,
+
+  includeFontPadding: false,
 }));
 
-export const IconContainer = styled.View(({ theme }) => ({
+export const IconContainer = styled.Pressable(({ theme }) => ({
   justifyContent: "center",
 
   alignItems: "center",
 
+  width: 36,
+
+  height: 36,
+
+  borderRadius: theme.radius.full,
+
   marginHorizontal: theme.spacing.xs,
 }));
-
-
-import { InputStatus } from "@/components/ui/Input/types";
-import { Theme } from "@emotion/react";
 
 export const getBorderColor = (
   theme: Theme,
   status: InputStatus,
   focused: boolean,
-  variant: {
-    borderColor: string;
-    focusedBorderColor: string;
-    errorBorderColor: string;
-  },
+  variant: InputVariantStyle,
 ) => {
-  if (status === "error") return variant.errorBorderColor;
+  if (status === "error") {
+    return variant.errorBorderColor;
+  }
 
-  if (focused) return variant.focusedBorderColor;
+  if (focused) {
+    return variant.focusedBorderColor;
+  }
 
   return variant.borderColor;
 };

@@ -3,8 +3,9 @@ import { persistStore, persistReducer } from "redux-persist";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { api } from "./api/api";
+
 import { rootReducer } from "./rootReducer";
+import { api } from "@/services/api/api";
 
 const persistConfig = {
   key: "root",
