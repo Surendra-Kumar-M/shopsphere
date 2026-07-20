@@ -4,5 +4,3 @@ export { default as SearchBar } from "./SearchBar";
 export { default as PromoBanner } from "./PromoBanner";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as CategorySection } from "./CategorySection";
-export { default as ProductCard } from "./ProductCard";
-export { default as ProductSection } from "./ProductSection";

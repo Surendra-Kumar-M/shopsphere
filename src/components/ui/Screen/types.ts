@@ -19,4 +19,8 @@ export interface ScreenProps extends Omit<ScrollViewProps, "children"> {
   backgroundColor?: ThemeColor;
 
   contentContainerStyle?: StyleProp<ViewStyle>;
+
+  refreshing?: boolean;
+
+  onRefresh?: () => void;
 }

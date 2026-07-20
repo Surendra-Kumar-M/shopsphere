@@ -27,15 +27,10 @@ export const categoryApi = api.injectEndpoints({
       providesTags: ["Category"],
     }),
 
-    getProductsByCategory: builder.query({
-      query: (slug: string) => `${API_ENDPOINTS.PRODUCTS_BY_CATEGORY}/${slug}`,
-
-      providesTags: ["Product"],
-    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useGetProductsByCategoryQuery } =
+export const { useGetCategoriesQuery } =
   categoryApi;
 
   

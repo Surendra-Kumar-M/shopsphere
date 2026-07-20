@@ -2,6 +2,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import ReduxProvider from "./ReduxProvider";
+import AuthProvider from "./AuthProvider";
 import ThemeProvider from "./ThemeProvider";
 
 interface Props {
@@ -13,7 +14,9 @@ export default function AppProvider({ children }: Props) {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <ReduxProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </AuthProvider>
         </ReduxProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

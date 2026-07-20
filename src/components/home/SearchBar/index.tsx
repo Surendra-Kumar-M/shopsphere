@@ -22,8 +22,8 @@ export default function SearchBar({
         rightIcon={SlidersHorizontal}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
+        onRightIconPress={onFilterPress}
         returnKeyType="search"
-        
       />
     </S.Container>
   );

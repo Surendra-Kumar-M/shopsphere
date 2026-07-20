@@ -6,12 +6,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { rootReducer } from "./rootReducer";
 import { api } from "@/services/api/api";
+import "@/services/api/endpoints/authApi";
+import {
+  migratePersistedState,
+  PERSIST_VERSION,
+} from "./persistMigration";
 
 const persistConfig = {
   key: "root",
+  version: PERSIST_VERSION,
   storage: AsyncStorage,
-
   whitelist: ["auth", "cart", "wishlist"],
+  migrate: migratePersistedState,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

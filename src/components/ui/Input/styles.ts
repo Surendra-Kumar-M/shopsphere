@@ -54,6 +54,10 @@ export const StyledInput = styled.TextInput<{
   paddingVertical: 0,
 
   includeFontPadding: false,
+  borderWidth: 0,
+  backgroundColor: "transparent",
+  appearance: "none",
+  outlineStyle:"none"
 }));
 
 export const IconContainer = styled.Pressable(({ theme }) => ({
