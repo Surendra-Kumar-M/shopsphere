@@ -2,7 +2,7 @@ import { ChevronLeft } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { AppText, Icon } from "@/components/ui";
+import { AppText, Icon } from "@/shared/components";
 
 import { CategoryProductsHeaderProps } from "./types";
 import * as S from "./styles";

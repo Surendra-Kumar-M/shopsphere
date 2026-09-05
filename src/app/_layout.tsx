@@ -23,6 +23,12 @@ export default function RootLayout() {
         <Stack.Screen name="product/[id]" />
         <Stack.Screen name="category/[slug]" />
 
+        <Stack.Screen
+          name="scanner"
+          options={{ presentation: "fullScreenModal" }}
+        />
+        <Stack.Screen name="scan-result" />
+
       </Stack>
 
     </AppProvider>

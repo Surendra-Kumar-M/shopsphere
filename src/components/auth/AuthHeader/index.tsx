@@ -1,4 +1,4 @@
-import { AppText } from "@/components/ui";
+import { AppText } from "@/shared/components";
 
 import { AuthHeaderProps } from "./types";
 import * as S from "./styles";

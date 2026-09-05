@@ -1,8 +1,7 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  logout as logoutAction,
   selectAuth,
   selectIsAuthenticated,
   selectIsAuthInitialized,
@@ -15,16 +14,17 @@ import {
 
 import { api } from "@/services/api/api";
 import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "@/services/api/endpoints/authApi";
-import {
-  clearTokens,
-  setTokens,
-} from "@/services/storage/secureStorage";
+  loginWithEmail,
+  registerWithEmail,
+  resetPassword as resetPasswordService,
+  getFirebaseErrorMessage,
+} from "@/services/auth/authService";
+import { signInWithGoogle } from "@/services/auth/googleAuth";
+import { logoutUser } from "@/services/auth/logout";
+import { mapFirebaseUser } from "@/services/firebase/mapFirebaseUser";
 
 interface LoginParams {
-  username: string;
+  username: string; // Accepts email or username
   password: string;
 }
 
@@ -45,42 +45,119 @@ export function useAuth() {
   const isOnboarded = useAppSelector(selectIsOnboarded);
   const isInitialized = useAppSelector(selectIsAuthInitialized);
 
-  const [loginMutation, loginState] = useLoginMutation();
-  const [registerMutation, registerState] = useRegisterMutation();
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const displayName = useMemo(() => {
     if (!user) return "";
-
-    return `${user.firstName} ${user.lastName}`.trim() || user.username;
+    return user.name || `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || user.username || "";
   }, [user]);
 
   const handleLogin = useCallback(
     async ({ username, password }: LoginParams) => {
-      const result = await loginMutation({ username, password }).unwrap();
+      setIsLoggingIn(true);
+      setAuthError(null);
 
-      await setTokens(result.tokens);
-      dispatch(setCredentials({ user: result.user }));
+      try {
+        // Firebase Auth login requires email address
+        const firebaseUser = await loginWithEmail(username, password);
+        const mappedUser = mapFirebaseUser(firebaseUser);
 
-      return result.user;
+        dispatch(
+          setCredentials({
+            user: mappedUser,
+            isAuthenticated: true,
+          }),
+        );
+        return mappedUser;
+      } catch (err: unknown) {
+        const errorMsg = getFirebaseErrorMessage(err);
+        setAuthError(errorMsg);
+        throw new Error(errorMsg);
+      } finally {
+        setIsLoggingIn(false);
+      }
     },
-    [dispatch, loginMutation],
+    [dispatch],
+  );
+
+  const googleSignIn = useCallback(
+    async () => {
+      setIsLoggingIn(true);
+      setAuthError(null);
+
+      try {
+        const firebaseUser = await signInWithGoogle();
+        const mappedUser = mapFirebaseUser(firebaseUser);
+
+        dispatch(
+          setCredentials({
+            user: mappedUser,
+            isAuthenticated: true,
+          }),
+        );
+        return mappedUser;
+      } catch (err: unknown) {
+        const errorMsg = getFirebaseErrorMessage(err);
+        setAuthError(errorMsg);
+        throw new Error(errorMsg);
+      } finally {
+        setIsLoggingIn(false);
+      }
+    },
+    [dispatch],
   );
 
   const handleRegister = useCallback(
     async (params: RegisterParams) => {
-      await registerMutation(params).unwrap();
+      setIsRegistering(true);
+      setAuthError(null);
 
-      return handleLogin({
-        username: params.username,
-        password: params.password,
-      });
+      try {
+        const fullName = `${params.firstName} ${params.lastName}`.trim();
+        const firebaseUser = await registerWithEmail(
+          params.email,
+          params.password,
+          fullName,
+        );
+
+        const mappedUser = mapFirebaseUser(firebaseUser);
+        mappedUser.username = params.username;
+        mappedUser.firstName = params.firstName;
+        mappedUser.lastName = params.lastName;
+
+        dispatch(
+          setCredentials({
+            user: mappedUser,
+            isAuthenticated: true,
+          }),
+        );
+        return mappedUser;
+      } catch (err: unknown) {
+        const errorMsg = getFirebaseErrorMessage(err);
+        setAuthError(errorMsg);
+        throw new Error(errorMsg);
+      } finally {
+        setIsRegistering(false);
+      }
     },
-    [handleLogin, registerMutation],
+    [dispatch],
   );
 
+  const handleForgotPassword = useCallback(async (email: string) => {
+    setAuthError(null);
+    try {
+      await resetPasswordService(email);
+    } catch (err: unknown) {
+      const errorMsg = getFirebaseErrorMessage(err);
+      setAuthError(errorMsg);
+      throw new Error(errorMsg);
+    }
+  }, []);
+
   const handleLogout = useCallback(async () => {
-    await clearTokens();
-    dispatch(logoutAction());
+    await logoutUser();
     dispatch(api.util.resetApiState());
   }, [dispatch]);
 
@@ -101,12 +178,13 @@ export function useAuth() {
     isAuthenticated,
     isOnboarded,
     isInitialized,
-    isLoggingIn: loginState.isLoading,
-    isRegistering: registerState.isLoading,
-    loginError: loginState.error,
-    registerError: registerState.error,
+    isLoggingIn,
+    isRegistering,
+    authError,
     login: handleLogin,
     register: handleRegister,
+    forgotPassword: handleForgotPassword,
+    googleSignIn,
     logout: handleLogout,
     completeOnboarding,
     markInitialized,

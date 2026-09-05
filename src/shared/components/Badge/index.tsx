@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 
-import { AppText } from "@/components/ui";
+import { AppText } from "@/shared/components";
 
 import * as S from "./styles";
 import { BADGE_CONFIG, BADGE_SIZES, BadgeProps } from "./types";

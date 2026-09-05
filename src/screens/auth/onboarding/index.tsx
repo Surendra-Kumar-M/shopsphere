@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { Href, useRouter } from "expo-router";
 
-import { AppText, Button, Screen } from "@/components/ui";
+import { AppText, Button, Screen } from "@/shared/components";
 
 import { ONBOARDING_SLIDES } from "@/constants/auth";
 import { useAuth } from "@/hooks/useAuth";

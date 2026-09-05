@@ -36,7 +36,23 @@
         }
       ],
       "expo-image",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser",
+      "@react-native-google-signin/google-signin",
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.shopsphere",
+          "enableGooglePay": true,
+          "urlScheme": "shopsphere"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow ShopSphere to access your camera to scan barcodes."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

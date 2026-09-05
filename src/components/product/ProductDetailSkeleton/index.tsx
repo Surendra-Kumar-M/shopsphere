@@ -1,4 +1,4 @@
-import { SkeletonLoader } from "@/components/ui";
+import { SkeletonLoader } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
 import { GALLERY_HEIGHT } from "../ProductGallery/types";

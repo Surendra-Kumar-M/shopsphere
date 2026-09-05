@@ -4,9 +4,10 @@ import { useTheme } from "@emotion/react";
 import { Href, useRouter } from "expo-router";
 
 import { CartItem, CartSummary } from "@/components/cart";
-import { AppText, Button, Screen } from "@/components/ui";
+import { AppText, Button, Screen } from "@/shared/components";
 
 import { useCart } from "@/hooks/useCart";
+import { usePayment } from "@/hooks/usePayment";
 
 import { CartItem as CartItemModel } from "@/models/Cart";
 import { Product } from "@/models/Product";
@@ -23,7 +24,10 @@ export default function CartScreen() {
     subtotal,
     updateQuantity,
     removeFromCart,
+    clearCart,
   } = useCart();
+
+  const { pay, isLoading: isPaymentLoading } = usePayment();
 
   const handleProductPress = useCallback(
     (product: Product) => {
@@ -60,6 +64,14 @@ export default function CartScreen() {
   const handleShopNow = useCallback(() => {
     router.push("/(tabs)" as Href);
   }, [router]);
+
+  const handleCheckout = useCallback(async () => {
+    const success = await pay(subtotal);
+
+    if (success) {
+      clearCart();
+    }
+  }, [pay, subtotal, clearCart]);
 
   const renderItem: ListRenderItem<CartItemModel> = useCallback(
     ({ item }) => (
@@ -125,9 +137,11 @@ export default function CartScreen() {
         <CartSummary
           itemCount={count}
           subtotal={subtotal}
-          onCheckoutPress={handleShopNow}
+          loading={isPaymentLoading}
+          onCheckoutPress={handleCheckout}
         />
       </S.Layout>
     </Screen>
   );
 }
+

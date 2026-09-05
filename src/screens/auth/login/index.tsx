@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Href, Redirect, useRouter } from "expo-router";
-import { Lock, User } from "lucide-react-native";
+import { Lock, Mail } from "lucide-react-native";
 
 import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/components/ui";
+import { AppText, Button, Input, Screen } from "@/shared/components";
 
 import { useAuth } from "@/hooks/useAuth";
 
@@ -14,8 +14,11 @@ import * as S from "../styles";
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { login, isLoggingIn, isAuthenticated, isInitialized } = useAuth();
+  const { login, googleSignIn, isLoggingIn, isAuthenticated, isInitialized } =
+    useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+
 
   const {
     control,
@@ -24,8 +27,8 @@ export default function LoginScreen() {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "emilys",
-      password: "emilyspass",
+      username: "",
+      password: "",
     },
   });
 
@@ -38,8 +41,12 @@ export default function LoginScreen() {
       setErrorMessage(null);
       await login(values);
       router.replace("/(tabs)" as Href);
-    } catch {
-      setErrorMessage("Invalid username or password. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("Invalid email or password. Please try again.");
+      }
     }
   };
 
@@ -64,11 +71,12 @@ export default function LoginScreen() {
           name="username"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
-              label="Username"
-              placeholder="Enter username"
+              label="Email address"
+              placeholder="Enter your email"
+              keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
-              leftIcon={User}
+              leftIcon={Mail}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -118,8 +126,26 @@ export default function LoginScreen() {
       </S.DividerRow>
 
       <S.SocialRow>
-        <Button title="Continue with Google" variant="outline" fullWidth />
-        <Button title="Continue with Apple" variant="outline" fullWidth />
+        <Button
+          title="Continue with Google"
+          variant="outline"
+          fullWidth
+          disabled={isLoggingIn}
+          loading={isLoggingIn}
+          onPress={async () => {
+            setErrorMessage(null);
+            try {
+              await googleSignIn();
+              router.replace("/(tabs)" as Href);
+            } catch (err: unknown) {
+              if (err instanceof Error) {
+                setErrorMessage(err.message);
+              } else {
+                setErrorMessage("Google Sign-In failed.");
+              }
+            }
+          }}
+        />
       </S.SocialRow>
 
       <S.Footer>

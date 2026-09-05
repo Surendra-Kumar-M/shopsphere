@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, SkeletonLoader } from "@/components/ui";
+import { AppText, SkeletonLoader } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
 import CategoryGridCard from "../CategoryGridCard";

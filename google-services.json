@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "145675054422",
+    "project_id": "shopsphere-c1cb1",
+    "storage_bucket": "shopsphere-c1cb1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145675054422:android:320e468d9cce12386f7af7",
+        "android_client_info": {
+          "package_name": "com.surendra_kumar_m.shopspherem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145675054422-k5pk03768apg53r3r5en8bcjaj9ojsqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.surendra_kumar_m.shopspherem",
+            "certificate_hash": "152e0e5141fc1d58ff092a989b46d01dea73c9f5"
+          }
+        },
+        {
+          "client_id": "145675054422-unk1ahmi8m7cl5tjntg58904qmg4soqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwGX_bTdQV1UmcGsV8LWFsKW_f_xsp6lk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145675054422-unk1ahmi8m7cl5tjntg58904qmg4soqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

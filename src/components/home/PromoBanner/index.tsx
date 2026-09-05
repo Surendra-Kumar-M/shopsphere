@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react-native";
 
-import { AppText, Button } from "@/components/ui";
+import { AppText, Button } from "@/shared/components";
 
 import * as S from "./styles";
 

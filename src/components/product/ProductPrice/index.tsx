@@ -1,4 +1,4 @@
-import { AppText, Badge } from "@/components/ui";
+import { AppText, Badge } from "@/shared/components";
 
 import { ProductPriceProps } from "./types";
 import * as S from "./styles";

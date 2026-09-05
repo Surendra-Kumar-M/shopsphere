@@ -5,7 +5,7 @@ import { Href, useLocalSearchParams, useRouter } from "expo-router";
 import { KeyRound, Lock } from "lucide-react-native";
 
 import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/components/ui";
+import { AppText, Button, Input, Screen } from "@/shared/components";
 
 import { ResetPasswordFormValues, resetPasswordSchema } from "../schemas";
 import * as S from "../styles";

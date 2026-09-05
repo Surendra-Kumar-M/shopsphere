@@ -3,7 +3,7 @@ import { FlatList, ListRenderItem } from "react-native";
 import { useTheme } from "@emotion/react";
 
 import SectionHeader from "@/components/home/SectionHeader";
-import { Spinner } from "@/components/ui";
+import { Spinner } from "@/shared/components";
 
 import ProductCard from "../ProductCard";
 import ProductCardSkeleton from "../ProductCardSkeleton";

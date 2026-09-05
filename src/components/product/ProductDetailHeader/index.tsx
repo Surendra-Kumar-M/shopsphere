@@ -1,7 +1,7 @@
 import { ChevronLeft, Heart, Share2 } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Icon } from "@/components/ui";
+import { Icon } from "@/shared/components";
 
 import { ProductDetailHeaderProps } from "./types";
 import * as S from "./styles";

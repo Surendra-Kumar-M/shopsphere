@@ -1,7 +1,7 @@
 import { Heart, Star } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, Button, Icon } from "@/components/ui";
+import { AppText, Button, Icon } from "@/shared/components";
 
 import {
   formatPrice,

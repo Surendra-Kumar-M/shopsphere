@@ -1,6 +1,6 @@
-import { Bell } from "lucide-react-native";
+import { Bell, ScanLine } from "lucide-react-native";
 
-import { Avatar, AppText, Button } from "@/components/ui";
+import { Avatar, AppText, Button } from "@/shared/components";
 
 
 import { GreetingHeaderProps } from "./types";
@@ -18,6 +18,8 @@ export default function GreetingHeader({
   onAvatarPress,
 
   onNotificationPress,
+
+  onScanPress,
 }: GreetingHeaderProps) {
     const greeting = getGreeting();
   return (
@@ -42,6 +44,7 @@ export default function GreetingHeader({
       </S.LeftContainer>
 
       <S.RightContainer>
+        <Button icon={ScanLine} variant="ghost" onPress={onScanPress} />
         <Button icon={Bell} variant="ghost" onPress={onNotificationPress} />
       </S.RightContainer>
     </S.Container>

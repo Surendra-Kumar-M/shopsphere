@@ -5,11 +5,16 @@ import { AuthState, User } from "@/models/User";
 
 import { normalizeAuthState } from "@/store/persistMigration";
 
+
+
 export const initialAuthState: AuthState = {
   user: null,
   isAuthenticated: false,
   isOnboarded: false,
   isInitialized: false,
+
+  isLoading: false,
+  error: null,
 };
 
 interface RehydrateAction {
@@ -48,7 +53,15 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
   },
+
   extraReducers: (builder) => {
     builder.addCase(REHYDRATE, (state, action: RehydrateAction) => {
       return normalizeAuthState(action.payload?.auth ?? state);
@@ -61,6 +74,8 @@ export const {
   setUser,
   setOnboarded,
   setInitialized,
+  setLoading,
+  setError,
   logout,
 } = authSlice.actions;
 

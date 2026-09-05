@@ -1,6 +1,6 @@
 import { Search, SlidersHorizontal } from "lucide-react-native";
 
-import { Button, Input } from "@/components/ui";
+import { Button, Input } from "@/shared/components";
 
 import { SearchBarProps } from "./types";
 

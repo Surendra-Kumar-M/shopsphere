@@ -1,7 +1,7 @@
 import { Star } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText } from "@/components/ui";
+import { AppText } from "@/shared/components";
 
 import { ProductReviewsProps } from "./types";
 import * as S from "./styles";

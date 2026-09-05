@@ -1,4 +1,4 @@
-import { AppText, Button } from "@/components/ui";
+import { AppText, Button } from "@/shared/components";
 
 import { formatPrice } from "@/utils/product.utils";
 
@@ -8,6 +8,7 @@ import * as S from "./styles";
 export default function CartSummary({
   itemCount,
   subtotal,
+  loading,
   onCheckoutPress,
 }: CartSummaryProps) {
   return (
@@ -22,7 +23,13 @@ export default function CartSummary({
         </AppText>
       </S.Row>
 
-      <Button title="Proceed to Checkout" fullWidth onPress={onCheckoutPress} />
+      <Button
+        title="Proceed to Checkout"
+        fullWidth
+        loading={loading}
+        onPress={onCheckoutPress}
+      />
     </S.Container>
   );
 }
+

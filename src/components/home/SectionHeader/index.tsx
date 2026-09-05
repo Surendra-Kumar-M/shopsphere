@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react-native";
 
 import { useTheme } from "@emotion/react";
 
-import { AppText, Icon } from "@/components/ui";
+import { AppText, Icon } from "@/shared/components";
 
 import { SectionHeaderProps } from "./types";
 

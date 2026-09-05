@@ -12,7 +12,7 @@ import { CategoryProductsHeader } from "@/components/category";
 import ProductCard from "@/components/product/ProductCard";
 import { PRODUCT_GRID_COLUMNS } from "@/components/product/ProductGrid/types";
 
-import { AppText, Button, Screen, SkeletonLoader, Spinner } from "@/components/ui";
+import { AppText, Button, Screen, SkeletonLoader, Spinner } from "@/shared/components";
 
 import { useCategoryProducts } from "@/hooks/useCategoryProducts";
 

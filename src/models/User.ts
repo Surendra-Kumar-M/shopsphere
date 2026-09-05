@@ -1,13 +1,22 @@
 export interface User {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
-}
+  id: string | number;
 
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+
+  name?: string;
+
+  email: string;
+
+  image?: string;
+  avatar?: string;
+
+  gender?: string;
+  phone?: string;
+
+  provider?: "google" | "email";
+}
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
@@ -18,4 +27,7 @@ export interface AuthState {
   isAuthenticated: boolean;
   isOnboarded: boolean;
   isInitialized: boolean;
+
+  isLoading: boolean;
+  error: string | null;
 }

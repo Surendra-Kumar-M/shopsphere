@@ -1,6 +1,6 @@
 import { SearchBar } from "@/components/home";
 import { CategoryFeatured, CategoryGrid } from "@/components/category";
-import { AppText, Button, Screen } from "@/components/ui";
+import { AppText, Button, Screen } from "@/shared/components";
 
 import { useCategories } from "@/hooks/useCategories";
 

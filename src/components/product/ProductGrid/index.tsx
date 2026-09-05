@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 import { FlatList, ListRenderItem, useWindowDimensions } from "react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, SkeletonLoader, Spinner } from "@/components/ui";
+import { AppText, SkeletonLoader, Spinner } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
 import { Product } from "@/models/Product";

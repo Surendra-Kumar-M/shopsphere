@@ -55,6 +55,7 @@ const mapUser = (response: LoginApiResponse | RegisterApiResponse): User => ({
   image: "image" in response ? response.image : "",
 });
 
+
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResult, LoginRequest>({
@@ -72,6 +73,15 @@ export const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Auth", "User"],
     }),
+    loginWithFirebase: builder.mutation<LoginResult, string>({
+      query: (idToken) => ({
+        url: "/auth/firebase",
+        method: "POST",
+        body: {
+          token: idToken,
+        },
+      }),
+    }),
 
     register: builder.mutation<User, RegisterRequest>({
       query: (body) => ({
@@ -84,7 +94,8 @@ export const authApi = api.injectEndpoints({
 
     getMe: builder.query<User, void>({
       query: () => API_ENDPOINTS.ME,
-      transformResponse: (response: LoginApiResponse): User => mapUser(response),
+      transformResponse: (response: LoginApiResponse): User =>
+        mapUser(response),
       providesTags: ["User"],
     }),
   }),

@@ -1,6 +1,6 @@
 import { Href, useRouter } from "expo-router";
 
-import { AppText, Avatar, Button, Screen } from "@/components/ui";
+import { AppText, Avatar, Button, Screen } from "@/shared/components";
 
 import { useAuth } from "@/hooks/useAuth";
 

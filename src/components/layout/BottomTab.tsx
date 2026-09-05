@@ -6,11 +6,12 @@ import {
   LayoutGrid,
   ShoppingCart,
   Heart,
+  MessageCircle,
   User,
 } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { AppText } from "@/components/ui";
+import { AppText } from "@/shared/components";
 
 import { useAppSelector } from "@/store/hooks";
 import { selectCartCount } from "@/store/slices/cartSlice";
@@ -48,6 +49,7 @@ const TABS: TabConfig[] = [
   { routeName: "categories", label: "Categories", icon: LayoutGrid },
   { routeName: "cart", label: "Cart", icon: ShoppingCart },
   { routeName: "wishlist", label: "Wishlist", icon: Heart },
+  { routeName: "chat", label: "Chat", icon: MessageCircle },
   { routeName: "profile", label: "Profile", icon: User },
 ];
 

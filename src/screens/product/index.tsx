@@ -13,7 +13,7 @@ import {
   ProductSpecs,
 } from "@/components/product";
 
-import { AppText, Badge, Button, Divider, Screen } from "@/components/ui";
+import { AppText, Badge, Button, Divider, Screen } from "@/shared/components";
 
 import { useProduct } from "@/hooks/useProduct";
 

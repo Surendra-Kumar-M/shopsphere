@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Star, ShoppingCart, Heart } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, Badge, Button, Icon } from "@/components/ui";
+import { AppText, Badge, Button, Icon } from "@/shared/components";
 
 import { ProductCardProps } from "./types";
 import * as S from "./styles";

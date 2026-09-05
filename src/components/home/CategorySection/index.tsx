@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { useTheme } from "@emotion/react";
 
-import { SkeletonLoader } from "@/components/ui";
+import { SkeletonLoader } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
 import SectionHeader from "../SectionHeader";

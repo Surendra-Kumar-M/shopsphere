@@ -1,4 +1,4 @@
-import { SkeletonLoader } from "@/components/ui";
+import { SkeletonLoader } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
 import { SKELETON_CARD_WIDTH, SKELETON_IMAGE_HEIGHT } from "./types";

@@ -5,7 +5,7 @@ import { Href, Redirect, useRouter } from "expo-router";
 import { Lock, Mail, User } from "lucide-react-native";
 
 import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/components/ui";
+import { AppText, Button, Input, Screen } from "@/shared/components";
 
 import { useAuth } from "@/hooks/useAuth";
 
@@ -42,8 +42,12 @@ export default function RegisterScreen() {
       setErrorMessage(null);
       await register(values);
       router.replace("/(tabs)" as Href);
-    } catch {
-      setErrorMessage("Could not create your account. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("Could not create your account. Please try again.");
+      }
     }
   };
 

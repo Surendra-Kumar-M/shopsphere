@@ -16,7 +16,7 @@ import { ProductSection } from "@/components/product";
 
 
 
-import { AppText, Button, Screen } from "@/components/ui";
+import { AppText, Button, Screen } from "@/shared/components";
 
 
 

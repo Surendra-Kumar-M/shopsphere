@@ -4,7 +4,7 @@ import { useTheme } from "@emotion/react";
 import { Href, useRouter } from "expo-router";
 
 import { WishlistItem } from "@/components/wishlist";
-import { AppText, Button, Screen } from "@/components/ui";
+import { AppText, Button, Screen } from "@/shared/components";
 
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";

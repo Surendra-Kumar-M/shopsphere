@@ -29,7 +29,9 @@ export default function TabsLayout() {
       <Tabs.Screen name="categories" options={{ title: "Categories" }} />
       <Tabs.Screen name="cart" options={{ title: "Cart" }} />
       <Tabs.Screen name="wishlist" options={{ title: "Wishlist" }} />
+      <Tabs.Screen name="chat" options={{ title: "Chat" }} />
       <Tabs.Screen name="profile" options={{ title: "Profile" }} />
     </Tabs>
   );
 }
+
