@@ -62,7 +62,9 @@ export default function ChatScreen() {
 
       socketRef.current.on("connect", () => {
         console.log("Connected:", socketRef.current?.id);
-        socketRef.current?.emit("join_room", roomRef.current);
+        socketRef.current?.emit("join_room", roomRef.current, {
+          name: `Mobile App User (${roomRef.current.slice(-4)})`,
+        });
       });
 
       socketRef.current.on("receive_message", (data: Message) => {
