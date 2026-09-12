@@ -28,7 +28,7 @@ const FAQ_OPTIONS = [
 ];
 
 const SOCKET_SERVER_URL =
-  process.env.EXPO_PUBLIC_SOCKET_SERVER_URL ?? "http://localhost:3000";
+  process.env.EXPO_PUBLIC_SOCKET_SERVER_URL ;
 
 export default function ChatScreen() {
   const inset = useSafeAreaInsets();

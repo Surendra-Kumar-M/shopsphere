@@ -1,5 +1,5 @@
 const STRIPE_BACKEND_URL =
-  process.env.EXPO_PUBLIC_STRIPE_BACKEND_URL ?? "http://localhost:4242";
+  process.env.EXPO_PUBLIC_STRIPE_BACKEND_URL ?? "";
 
 interface PaymentIntentParams {
   amount: number; // in smallest currency unit (e.g. paise for INR)
