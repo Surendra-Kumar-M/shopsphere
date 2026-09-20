@@ -22,6 +22,7 @@ export default function CartScreen() {
     items,
     count,
     subtotal,
+    isLoading: isCartLoading,
     updateQuantity,
     removeFromCart,
     clearCart,
@@ -41,7 +42,7 @@ export default function CartScreen() {
 
   const handleIncrement = useCallback(
     (product: Product) => {
-      const item = items.find((cartItem) => cartItem.product.id === product.id);
+      const item = items.find((cartItem) => cartItem.productId === product.id);
 
       if (!item) return;
 
@@ -52,7 +53,7 @@ export default function CartScreen() {
 
   const handleDecrement = useCallback(
     (product: Product) => {
-      const item = items.find((cartItem) => cartItem.product.id === product.id);
+      const item = items.find((cartItem) => cartItem.productId === product.id);
 
       if (!item) return;
 
@@ -87,7 +88,7 @@ export default function CartScreen() {
   );
 
   const keyExtractor = useCallback(
-    (item: CartItemModel) => item.product.id.toString(),
+    (item: CartItemModel) => item.productId.toString(),
     [],
   );
 
@@ -137,7 +138,7 @@ export default function CartScreen() {
         <CartSummary
           itemCount={count}
           subtotal={subtotal}
-          loading={isPaymentLoading}
+          loading={isPaymentLoading || isCartLoading}
           onCheckoutPress={handleCheckout}
         />
       </S.Layout>

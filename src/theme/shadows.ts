@@ -1,8 +1,8 @@
-import { Platform } from "react-native";
+import { Colors } from "./colors";
 
 export const Shadows = {
   sm: {
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -13,7 +13,7 @@ export const Shadows = {
   },
 
   md: {
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -24,7 +24,7 @@ export const Shadows = {
   },
 
   lg: {
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 8,

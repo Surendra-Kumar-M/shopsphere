@@ -1,3 +1,4 @@
+import { type BottomTabBarProps } from "expo-router/build/react-navigation/bottom-tabs";
 import { ViewStyle } from "react-native";
 
 import { useTheme } from "@emotion/react";
@@ -19,25 +20,6 @@ import { selectWishlistItems } from "@/store/slices/wishlistSlice";
 
 import * as S from "./BottomTab.styles";
 
-interface TabBarProps {
-  state: {
-    index: number;
-    routes: { key: string; name: string }[];
-  };
-  descriptors: Record<
-    string,
-    { options: { tabBarAccessibilityLabel?: string } }
-  >;
-  navigation: {
-    emit: (event: {
-      type: string;
-      target: string;
-      canPreventDefault?: boolean;
-    }) => { defaultPrevented: boolean };
-    navigate: (name: string) => void;
-  };
-}
-
 interface TabConfig {
   routeName: string;
   label: string;
@@ -57,7 +39,7 @@ export default function BottomTab({
   state,
   descriptors,
   navigation,
-}: TabBarProps) {
+}: BottomTabBarProps) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 

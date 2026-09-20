@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { setCredentials, setInitialized, setUser } from "@/store/slices/authSlice";
 import { initializeAuthListener } from "@/services/auth/authListener";
 import { authApi } from "@/services/api/endpoints/authApi";
-import { clearTokens, getAccessToken } from "@/services/storage/secureStorage";
+import { getAccessToken } from "@/services/storage/secureStorage";
 
 void SplashScreen.preventAutoHideAsync();
 

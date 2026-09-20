@@ -45,7 +45,7 @@ export function useWishlist() {
   }, [dispatch]);
 
   const checkIsWishlisted = useCallback(
-    (productId: number) => items.some((item) => item.id === productId),
+    (productId: number) => items.some((item) => item.productId === productId),
     [items],
   );
 

@@ -34,7 +34,7 @@ export default function SkeletonLoader({
       -1,
       false,
     );
-  }, []);
+  }, [progress]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

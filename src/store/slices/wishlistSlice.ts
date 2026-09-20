@@ -31,25 +31,25 @@ const wishlistSlice = createSlice({
       ensureItems(state);
 
       const exists = state.items.some(
-        (item) => item.id === action.payload.id,
+        (item) => item.productId === action.payload.id,
       );
 
       if (!exists) {
-        state.items.push(action.payload);
+        state.items.push({ productId: action.payload.id });
       }
     },
 
     removeFromWishlist: (state, action: PayloadAction<number>) => {
       ensureItems(state);
 
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.productId !== action.payload);
     },
 
     toggleWishlist: (state, action: PayloadAction<Product>) => {
       ensureItems(state);
 
       const index = state.items.findIndex(
-        (item) => item.id === action.payload.id,
+        (item) => item.productId === action.payload.id,
       );
 
       if (index >= 0) {
@@ -57,7 +57,7 @@ const wishlistSlice = createSlice({
         return;
       }
 
-      state.items.push(action.payload);
+      state.items.push({ productId: action.payload.id });
     },
 
     clearWishlist: (state) => {
@@ -82,11 +82,11 @@ export const selectWishlistItems = (state: { wishlist?: WishlistState }) =>
   state.wishlist?.items ?? [];
 
 export const selectWishlistIds = (state: { wishlist?: WishlistState }) =>
-  selectWishlistItems(state).map((item) => item.id);
+  selectWishlistItems(state).map((item) => item.productId);
 
 export const selectIsWishlisted =
   (productId: number) =>
   (state: { wishlist?: WishlistState }): boolean =>
-    selectWishlistItems(state).some((item) => item.id === productId);
+    selectWishlistItems(state).some((item) => item.productId === productId);
 
 export default wishlistSlice.reducer;

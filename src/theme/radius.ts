@@ -5,6 +5,7 @@ export const Radius = {
   lg: 16,
   xl: 20,
   pill: 999,
-  round: "50%",
+  /** Use for circular shapes. Equivalent to half of the element's dimension. */
+  round: 9999,
   full: 9999,
 } as const;

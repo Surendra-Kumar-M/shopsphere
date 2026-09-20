@@ -40,9 +40,4 @@ export const Dots = styled.View(({ theme }) => ({
   gap: theme.spacing.sm,
 }));
 
-export const Dot = styled.View<{ active: boolean }>(({ theme, active }) => ({
-  width: active ? 24 : 8,
-  height: 8,
-  borderRadius: theme.radius.full,
-  backgroundColor: active ? theme.colors.primary : theme.colors.border,
-}));
+

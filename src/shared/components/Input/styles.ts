@@ -1,5 +1,6 @@
 import styled from "@emotion/native";
-import { Pressable } from "react-native";
+import { Platform, Pressable } from "react-native";
+
 import { Theme } from "@emotion/react";
 
 import AppText from "../AppText";
@@ -42,6 +43,7 @@ export const InputWrapper = styled(Pressable)<{
   paddingHorizontal: theme.spacing.md,
 }));
 
+
 export const StyledInput = styled.TextInput<{
   fontSize: number;
 }>(({ theme, fontSize }) => ({
@@ -56,9 +58,14 @@ export const StyledInput = styled.TextInput<{
   includeFontPadding: false,
   borderWidth: 0,
   backgroundColor: "transparent",
-  appearance: "none",
-  outlineStyle:"none"
+  // outlineStyle is a web-only CSS property; Platform.select keeps the native
+  // path within valid TextStyle while still suppressing the browser focus ring.
+  ...Platform.select({
+    web: { outlineStyle: "none" } as object,
+    default: {},
+  }),
 }));
+
 
 export const IconContainer = styled.Pressable(({ theme }) => ({
   justifyContent: "center",

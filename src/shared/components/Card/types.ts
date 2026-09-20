@@ -1,10 +1,8 @@
-import { PropsWithChildren } from "react";
 import { PressableProps, StyleProp, ViewStyle } from "react-native";
 
+import { AppTheme } from "@/theme";
+
 export type CardVariant = "filled" | "outlined" | "elevated";
-
-import { ReactNode } from "react";
-
 
 export interface CardProps extends Omit<PressableProps, "children" | "style"> {
   children?: React.ReactNode;
@@ -15,8 +13,6 @@ export interface CardProps extends Omit<PressableProps, "children" | "style"> {
 
   padding?: boolean;
 }
-
-import { AppTheme } from "@/theme";
 
 type ThemeColor = keyof AppTheme["colors"];
 

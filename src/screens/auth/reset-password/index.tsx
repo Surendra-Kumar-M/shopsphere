@@ -4,11 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Href, useLocalSearchParams, useRouter } from "expo-router";
 import { KeyRound, Lock } from "lucide-react-native";
 
-import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/shared/components";
+import {
+  AuthErrorBanner,
+  AuthForm,
+  AuthHeader,
+  AuthScreenContainer,
+} from "@/components/auth";
+import { Button, Input } from "@/shared/components";
 
 import { ResetPasswordFormValues, resetPasswordSchema } from "../schemas";
-import * as S from "../styles";
 
 export default function ResetPasswordScreen() {
   const router = useRouter();
@@ -41,7 +45,7 @@ export default function ResetPasswordScreen() {
   };
 
   return (
-    <Screen scrollable keyboardAvoiding>
+    <AuthScreenContainer>
       <AuthHeader
         title="Reset password"
         subtitle={
@@ -51,15 +55,13 @@ export default function ResetPasswordScreen() {
         }
       />
 
-      {successMessage ? (
-        <S.ErrorBanner>
-          <AppText variant="bodySmall" color="success">
-            {successMessage}
-          </AppText>
-        </S.ErrorBanner>
-      ) : null}
+      <AuthErrorBanner
+        variant="success"
+        message={successMessage}
+        onDismiss={() => setSuccessMessage(null)}
+      />
 
-      <S.Form>
+      <AuthForm>
         <Controller
           control={control}
           name="otp"
@@ -128,7 +130,7 @@ export default function ResetPasswordScreen() {
             onPress={() => router.replace("/login" as Href)}
           />
         ) : null}
-      </S.Form>
-    </Screen>
+      </AuthForm>
+    </AuthScreenContainer>
   );
 }

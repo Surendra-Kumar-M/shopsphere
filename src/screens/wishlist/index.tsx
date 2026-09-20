@@ -10,6 +10,7 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 
 import { Product } from "@/models/Product";
+import { WishlistItem as WishlistItemModel } from "@/models/Wishlist";
 
 import * as S from "./styles";
 
@@ -41,10 +42,10 @@ export default function WishlistScreen() {
     router.push("/(tabs)" as Href);
   }, [router]);
 
-  const renderItem: ListRenderItem<Product> = useCallback(
+  const renderItem: ListRenderItem<WishlistItemModel> = useCallback(
     ({ item }) => (
       <WishlistItem
-        product={item}
+        item={item}
         onPress={handleProductPress}
         onAddToCartPress={handleAddToCart}
         onRemovePress={(product) => removeFromWishlist(product.id)}
@@ -53,7 +54,7 @@ export default function WishlistScreen() {
     [handleAddToCart, handleProductPress, removeFromWishlist],
   );
 
-  const keyExtractor = useCallback((item: Product) => item.id.toString(), []);
+  const keyExtractor = useCallback((item: WishlistItemModel) => item.productId.toString(), []);
 
   if (items.length === 0) {
     return (

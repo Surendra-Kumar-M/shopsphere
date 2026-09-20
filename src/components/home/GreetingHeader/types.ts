@@ -1,5 +1,3 @@
-import { LucideIcon } from "lucide-react-native";
-
 export interface GreetingHeaderProps {
   userName: string;
 
@@ -12,6 +10,8 @@ export interface GreetingHeaderProps {
   onAvatarPress?: () => void;
 
   onNotificationPress?: () => void;
+
+  onScanPress?: () => void;
 }
 
 export const DEFAULT_GREETING = "Good Morning";

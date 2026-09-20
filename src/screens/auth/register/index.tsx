@@ -4,8 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Href, Redirect, useRouter } from "expo-router";
 import { Lock, Mail, User } from "lucide-react-native";
 
-import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/shared/components";
+import {
+  AuthErrorBanner,
+  AuthForm,
+  AuthHeader,
+  AuthScreenContainer,
+} from "@/components/auth";
+import { AppText, Button, Input } from "@/shared/components";
 
 import { useAuth } from "@/hooks/useAuth";
 
@@ -52,21 +57,18 @@ export default function RegisterScreen() {
   };
 
   return (
-    <Screen scrollable keyboardAvoiding>
+    <AuthScreenContainer>
       <AuthHeader
         title="Create account"
         subtitle="Join ShopSphere and start discovering products you love."
       />
 
-      {errorMessage ? (
-        <S.ErrorBanner>
-          <AppText variant="bodySmall" color="danger">
-            {errorMessage}
-          </AppText>
-        </S.ErrorBanner>
-      ) : null}
+      <AuthErrorBanner
+        message={errorMessage}
+        onDismiss={() => setErrorMessage(null)}
+      />
 
-      <S.Form>
+      <AuthForm>
         <Controller
           control={control}
           name="firstName"
@@ -176,7 +178,7 @@ export default function RegisterScreen() {
           loading={isRegistering}
           onPress={handleSubmit(onSubmit)}
         />
-      </S.Form>
+      </AuthForm>
 
       <S.Footer>
         <S.LinkRow>
@@ -190,6 +192,6 @@ export default function RegisterScreen() {
           />
         </S.LinkRow>
       </S.Footer>
-    </Screen>
+    </AuthScreenContainer>
   );
 }

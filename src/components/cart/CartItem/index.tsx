@@ -1,9 +1,11 @@
 import { Minus, Plus, Trash2 } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, Icon } from "@/shared/components";
+import { AppText, Icon, SkeletonLoader } from "@/shared/components";
 
 import { getCartItemTotal } from "@/store/slices/cartSlice";
+
+import { useGetProductByIdQuery } from "@/services/api/endpoints/productApi";
 
 import {
   formatPrice,
@@ -21,14 +23,32 @@ export default function CartItem({
   onRemove,
 }: CartItemProps) {
   const theme = useTheme();
-  const { product, quantity } = item;
+  const { productId, quantity } = item;
+
+  const { data: product, isLoading, isError } = useGetProductByIdQuery(productId);
+
+  if (isLoading || isError || !product) {
+    return (
+      <S.Container accessibilityRole="none">
+        <SkeletonLoader 
+          width={88} 
+          height={88} 
+          style={{ borderRadius: theme.spacing.sm }} 
+        />
+        <S.Content>
+           <SkeletonLoader width="80%" height={20} />
+           <SkeletonLoader width="40%" height={16} style={{ marginTop: 8 }} />
+        </S.Content>
+      </S.Container>
+    );
+  }
 
   const unitPrice = getDiscountedPrice(
     product.price,
     product.discountPercentage,
   );
 
-  const lineTotal = getCartItemTotal(item);
+  const lineTotal = getCartItemTotal(product, quantity);
 
   return (
     <S.Container

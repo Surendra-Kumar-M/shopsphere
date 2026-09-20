@@ -1,7 +1,8 @@
+import React, { ReactElement } from "react";
 import { StripeProvider as NativeStripeProvider } from "@stripe/stripe-react-native";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactElement;
 }
 
 const STRIPE_PUBLISHABLE_KEY =

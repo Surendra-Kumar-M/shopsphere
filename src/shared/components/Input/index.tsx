@@ -9,9 +9,7 @@ import Spinner from "../Spinner";
 
 import * as S from "./styles";
 
-import { INPUT_SIZES, inputVariants } from "./types";
-
-import { InputProps } from "./types";
+import { INPUT_SIZES, inputVariants, InputProps } from "./types";
 
 export default function Input({
   label,

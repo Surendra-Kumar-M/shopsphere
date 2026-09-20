@@ -20,10 +20,16 @@ export function useCategoryProducts(slug: string) {
   const [search, setSearch] = useState("");
   const [productSkip, setProductSkip] = useState(0);
 
+  // Intentional: reset search and pagination synchronously when the category
+  // slug changes. This is a deliberate UI reset, not an accidental cascade:
+  // slug change is user-initiated (navigation event), so the double-render
+  // is acceptable and expected.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearch("");
     setProductSkip(0);
   }, [slug]);
+
 
   const { data: categories = [], isLoading: categoriesLoading } =
     useGetCategoriesQuery();
@@ -47,7 +53,10 @@ export function useCategoryProducts(slug: string) {
   const { addToCart } = useCart();
   const { toggleWishlist, wishlistedIds } = useWishlist();
 
-  const products = productsResponse?.products ?? [];
+  const products = useMemo(
+    () => productsResponse?.products ?? [],
+    [productsResponse],
+  );
   const totalProducts = productsResponse?.total ?? 0;
   const hasMoreProducts = products.length < totalProducts;
 

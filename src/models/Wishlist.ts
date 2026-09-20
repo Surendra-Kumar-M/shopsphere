@@ -1,5 +1,7 @@
-import { Product } from "./Product";
+export interface WishlistItem {
+  productId: number;
+}
 
 export interface WishlistState {
-  items: Product[];
+  items: WishlistItem[];
 }

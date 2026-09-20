@@ -1,5 +1,7 @@
 import styled from "@emotion/native";
 
+import { withAlpha } from "@/utils/color";
+
 export const Form = styled.View(({ theme }) => ({
   gap: theme.spacing.lg,
 }));
@@ -38,7 +40,7 @@ export const DividerLine = styled.View(({ theme }) => ({
 export const ErrorBanner = styled.View(({ theme }) => ({
   padding: theme.spacing.md,
   borderRadius: theme.radius.md,
-  backgroundColor: theme.colors.danger + "14",
+  backgroundColor: withAlpha(theme.colors.danger, 0.08),
   borderWidth: 1,
-  borderColor: theme.colors.danger + "33",
+  borderColor: withAlpha(theme.colors.danger, 0.2),
 }));

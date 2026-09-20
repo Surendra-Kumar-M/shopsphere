@@ -1,6 +1,5 @@
 import { ChevronRight } from "lucide-react-native";
 
-import { useTheme } from "@emotion/react";
 
 import { AppText, Icon } from "@/shared/components";
 
@@ -15,8 +14,6 @@ export default function SectionHeader({
   actionIcon = ChevronRight,
   onActionPress,
 }: SectionHeaderProps) {
-  const theme = useTheme();
-
   const ActionIcon = actionIcon;
 
   return (

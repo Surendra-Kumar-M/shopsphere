@@ -1,7 +1,8 @@
 import { Product } from "@/models/Product";
+import { WishlistItem as WishlistItemModel } from "@/models/Wishlist";
 
 export interface WishlistItemProps {
-  product: Product;
+  item: WishlistItemModel;
 
   onPress?: (product: Product) => void;
 

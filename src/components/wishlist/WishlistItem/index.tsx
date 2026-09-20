@@ -1,7 +1,9 @@
 import { Heart, Star } from "lucide-react-native";
 import { useTheme } from "@emotion/react";
 
-import { AppText, Button, Icon } from "@/shared/components";
+import { AppText, Button, Icon, SkeletonLoader } from "@/shared/components";
+
+import { useGetProductByIdQuery } from "@/services/api/endpoints/productApi";
 
 import {
   formatPrice,
@@ -13,12 +15,31 @@ import { WishlistItemProps } from "./types";
 import * as S from "./styles";
 
 export default function WishlistItem({
-  product,
+  item,
   onPress,
   onAddToCartPress,
   onRemovePress,
 }: WishlistItemProps) {
   const theme = useTheme();
+
+  const { data: product, isLoading, isError } = useGetProductByIdQuery(item.productId);
+
+  if (isLoading || isError || !product) {
+    return (
+      <S.Container accessibilityRole="none">
+        <SkeletonLoader 
+          width={96} 
+          height={96} 
+          style={{ borderRadius: theme.spacing.sm }} 
+        />
+        <S.Content>
+           <SkeletonLoader width="80%" height={20} />
+           <SkeletonLoader width="30%" height={16} style={{ marginTop: 8 }} />
+           <SkeletonLoader width="60%" height={32} style={{ marginTop: 12 }} />
+        </S.Content>
+      </S.Container>
+    );
+  }
 
   const salePrice = getDiscountedPrice(
     product.price,

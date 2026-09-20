@@ -1,4 +1,5 @@
 import { TextInputProps } from "react-native";
+import { Theme } from "@emotion/react";
 import { LucideIcon } from "lucide-react-native";
 
 export type InputVariant = "outlined" | "filled";
@@ -80,9 +81,6 @@ export interface InputSizeConfig {
   iconSize: number;
 }
 
-
-import { Theme } from "@emotion/react";
-
 export const INPUT_SIZES = {
   sm: {
     height: 40,
@@ -105,6 +103,7 @@ export const INPUT_SIZES = {
   InputSize,
   InputSizeConfig
 >;
+
 export const inputVariants = (theme: Theme) =>
   ({
     outlined: {
@@ -121,6 +120,7 @@ export const inputVariants = (theme: Theme) =>
       errorBorderColor: theme.colors.danger,
     },
   }) satisfies Record<InputVariant, any>;
+
 export interface InputVariantStyle {
   backgroundColor: string;
   borderColor: string;

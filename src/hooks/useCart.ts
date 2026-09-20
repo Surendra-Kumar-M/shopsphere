@@ -11,6 +11,7 @@ import {
   selectCartItems,
   selectCartCount,
   selectCartSubtotal,
+  selectIsCartLoading,
 } from "@/store/slices/cartSlice";
 
 export function useCart() {
@@ -21,6 +22,8 @@ export function useCart() {
   const count = useAppSelector(selectCartCount);
 
   const subtotal = useAppSelector(selectCartSubtotal);
+
+  const isLoading = useAppSelector(selectIsCartLoading);
 
   const handleAddToCart = useCallback(
     (product: Product) => {
@@ -49,7 +52,7 @@ export function useCart() {
 
   const checkIsInCart = useCallback(
     (productId: number) =>
-      items.some((item) => item.product.id === productId),
+      items.some((item) => item.productId === productId),
     [items],
   );
 
@@ -57,6 +60,7 @@ export function useCart() {
     items,
     count,
     subtotal,
+    isLoading,
     addToCart: handleAddToCart,
     removeFromCart: handleRemoveFromCart,
     updateQuantity: handleUpdateQuantity,

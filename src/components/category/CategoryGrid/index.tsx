@@ -5,7 +5,7 @@ import { useTheme } from "@emotion/react";
 import { AppText, SkeletonLoader } from "@/shared/components";
 import { Radius } from "@/theme/radius";
 
-import CategoryGridCard from "../CategoryGridCard";
+import GridCard from "../CategoryGridCard";
 import { GRID_CARD_HEIGHT } from "../CategoryGridCard/types";
 
 import { GRID_COLUMNS, GRID_SKELETON_COUNT, CategoryGridProps } from "./types";
@@ -60,7 +60,7 @@ export default function CategoryGrid({
     <S.Container>
       <S.Grid>
         {categories.map((category) => (
-          <CategoryGridCard
+          <GridCard
             key={category.slug}
             category={category}
             width={cardWidth}

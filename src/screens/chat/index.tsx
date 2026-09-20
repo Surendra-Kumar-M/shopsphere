@@ -7,7 +7,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SendHorizontal, Headset, Settings2, RefreshCw } from "lucide-react-native";
-import io, { Socket } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 
@@ -65,7 +66,8 @@ export default function ChatScreen() {
   const inset = useSafeAreaInsets();
   const flatListRef = useRef<FlatList>(null);
   const socketRef = useRef<Socket | null>(null);
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
 
   const [roomId] = useState<string>(() => `room-${Date.now()}`);
   const [serverUrl, setServerUrl] = useState<string>(getDefaultServerUrl);
@@ -81,7 +83,7 @@ export default function ChatScreen() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [customUrlInput, setCustomUrlInput] = useState("");
 
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState<Message[]>(() => [
     {
       id: "1",
       text: "Hi 👋 I'm your ShopSphere assistant. You can choose a FAQ topic or tap 'Chat with a real person' to connect with our support team live.",
@@ -89,6 +91,7 @@ export default function ChatScreen() {
       timestamp: Date.now(),
     },
   ]);
+
 
   /* ---------------- AUTO SCROLL ---------------- */
   useEffect(() => {
@@ -121,9 +124,6 @@ export default function ChatScreen() {
     }
 
     console.log("[ChatScreen] Connecting to Socket Server:", urlToConnect);
-    setIsConnecting(true);
-    setIsConnected(false);
-    setConnectionError(null);
 
     const socket = io(urlToConnect, {
       transports: ["websocket", "polling"],
@@ -240,11 +240,14 @@ export default function ChatScreen() {
     setBotInteracted(true);
 
     const userMsg: Message = {
+      // eslint-disable-next-line react-hooks/purity -- Date.now() is in an event handler, not render
       id: Date.now().toString(),
       text: question,
       sender: "user",
+      // eslint-disable-next-line react-hooks/purity -- timestamp generated on user action
       timestamp: Date.now(),
     };
+
 
     setMessages((prev) => [...prev, userMsg]);
 

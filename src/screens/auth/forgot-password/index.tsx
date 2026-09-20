@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Href, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Mail } from "lucide-react-native";
 
-import { AuthHeader } from "@/components/auth";
-import { AppText, Button, Input, Screen } from "@/shared/components";
+import {
+  AuthErrorBanner,
+  AuthForm,
+  AuthHeader,
+  AuthScreenContainer,
+} from "@/components/auth";
+import { Button, Input } from "@/shared/components";
 import { useAuth } from "@/hooks/useAuth";
 
 import { ForgotPasswordFormValues, forgotPasswordSchema } from "../schemas";
-import * as S from "../styles";
 
 export default function ForgotPasswordScreen() {
   const router = useRouter();
@@ -46,29 +50,24 @@ export default function ForgotPasswordScreen() {
   };
 
   return (
-    <Screen scrollable keyboardAvoiding>
+    <AuthScreenContainer>
       <AuthHeader
         title="Forgot password?"
         subtitle="Enter your email and we will send you a password reset link."
       />
 
-      {errorMessage ? (
-        <S.ErrorBanner>
-          <AppText variant="bodySmall" color="danger">
-            {errorMessage}
-          </AppText>
-        </S.ErrorBanner>
-      ) : null}
+      <AuthErrorBanner
+        message={errorMessage}
+        onDismiss={() => setErrorMessage(null)}
+      />
 
-      {isSuccess ? (
-        <S.ErrorBanner style={{ backgroundColor: "#E6F4EA" }}>
-          <AppText variant="bodySmall" style={{ color: "#137333" }}>
-            A password reset email has been sent. Please check your inbox.
-          </AppText>
-        </S.ErrorBanner>
-      ) : null}
+      <AuthErrorBanner
+        variant="success"
+        message={isSuccess ? "A password reset email has been sent. Please check your inbox." : null}
+        onDismiss={() => setIsSuccess(false)}
+      />
 
-      <S.Form>
+      <AuthForm>
         <Controller
           control={control}
           name="email"
@@ -99,7 +98,7 @@ export default function ForgotPasswordScreen() {
           variant="ghost"
           onPress={() => router.back()}
         />
-      </S.Form>
-    </Screen>
+      </AuthForm>
+    </AuthScreenContainer>
   );
 }

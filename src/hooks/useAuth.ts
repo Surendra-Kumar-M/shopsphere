@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  selectAuth,
   selectIsAuthenticated,
   selectIsAuthInitialized,
   selectIsOnboarded,
@@ -39,8 +38,8 @@ interface RegisterParams {
 export function useAuth() {
   const dispatch = useAppDispatch();
 
-  const auth = useAppSelector(selectAuth);
   const user = useAppSelector(selectUser);
+
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const isOnboarded = useAppSelector(selectIsOnboarded);
   const isInitialized = useAppSelector(selectIsAuthInitialized);

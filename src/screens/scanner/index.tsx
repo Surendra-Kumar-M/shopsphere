@@ -12,9 +12,14 @@ export default function ScannerScreen() {
   const router = useRouter();
   const [permission, requestPermission] = useCameraPermissions();
 
-  const [scannedValue, setScannedValue] = useState<string | null>(null);
+  // isScanningEnabled mirrors isScanning.current for reactive JSX reads.
+  // The ref is still used for instant mutation inside callbacks (no re-render
+  // needed for the debounce guard). State is used only where JSX must react.
   const isScanning = useRef(true);
-  const scanAnim = useRef(new Animated.Value(0)).current;
+  const [isScanningEnabled, setIsScanningEnabled] = useState(true);
+
+  // Keep the Animated.Value in state so we don't access a ref.current during render.
+  const [scanAnim] = useState(() => new Animated.Value(0));
 
   /* ---------------- PERMISSION ---------------- */
   useEffect(() => {
@@ -26,21 +31,22 @@ export default function ScannerScreen() {
   /* ---------------- RESET ON SCREEN FOCUS ---------------- */
   useFocusEffect(
     useCallback(() => {
-      setScannedValue(null);
       isScanning.current = true;
+      setIsScanningEnabled(true);
     }, []),
   );
 
   /* ---------------- SCAN LINE ANIMATION ---------------- */
   useEffect(() => {
+    const anim = scanAnim;
     const animation = Animated.loop(
       Animated.sequence([
-        Animated.timing(scanAnim, {
+        Animated.timing(anim, {
           toValue: 220,
           duration: 1500,
           useNativeDriver: true,
         }),
-        Animated.timing(scanAnim, {
+        Animated.timing(anim, {
           toValue: 0,
           duration: 1500,
           useNativeDriver: true,
@@ -61,7 +67,7 @@ export default function ScannerScreen() {
       if (!value) return;
 
       isScanning.current = false;
-      setScannedValue(value);
+      setIsScanningEnabled(false);
       Vibration.vibrate(80);
 
       setTimeout(() => {
@@ -91,7 +97,7 @@ export default function ScannerScreen() {
         barcodeScannerSettings={{
           barcodeTypes: ["qr", "ean13", "ean8", "code128"],
         }}
-        onBarcodeScanned={isScanning.current ? handleBarcodeScanned : undefined}
+        onBarcodeScanned={isScanningEnabled ? handleBarcodeScanned : undefined}
       />
 
       {/* Overlay */}
