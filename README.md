@@ -1,56 +1,118 @@
-# Welcome to your Expo app 👋
+# ShopSphere
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**A production-oriented e-commerce mobile application built with React Native and Expo, featuring product discovery, authentication, cart and wishlist management, barcode scanning, and payment integration.**
 
-## Get started
+**Status: 🚧 Active development**
 
-1. Install dependencies
+## Overview
 
+ShopSphere is a robust e-commerce mobile application designed to provide a seamless and engaging shopping experience. Built on a modern React Native and Expo stack, the project emphasizes a clean, modular architecture, making it highly maintainable and suitable for production deployments. It leverages Expo Router for file-based navigation, Redux Toolkit for centralized state management, and integrates with essential third-party services like Firebase and Stripe.
+
+## Key Features
+
+- **Authentication System**: Complete user onboarding flow, including Login, Registration, Forgot Password, and Reset Password, utilizing Firebase and Google Sign-in.
+- **Product Discovery**: Browse products by category, view detailed product pages, and search for items.
+- **Shopping Cart & Wishlist**: Manage cart items and save favorites to a wishlist, with locally persisted state using Redux Persist and AsyncStorage.
+- **Checkout & Payments**: Stripe payment integration supporting the application's checkout flow.
+- **Barcode Scanner**: In-app camera scanning for quick product lookups using Expo Camera.
+- **Real-time Chat**: Customer support and interaction capabilities powered by Socket.IO.
+- **User Profile**: Manage user settings, orders, and account details.
+
+## Tech Stack
+
+The application is built using a modern, scalable technology stack:
+
+- **Framework**: React Native, Expo (SDK 57)
+- **Navigation**: Expo Router (with typed routes)
+- **State Management**: Redux Toolkit, React-Redux, Redux Persist (AsyncStorage)
+- **Data Fetching/API**: Axios
+- **Styling**: Emotion (`@emotion/native`), React Native Reanimated
+- **Forms & Validation**: React Hook Form, Zod, `@hookform/resolvers`
+- **External Integrations**: Firebase, Stripe (`@stripe/stripe-react-native`), Socket.IO Client
+- **UI Icons**: Lucide React Native
+
+## Architecture & Project Structure
+
+The codebase is organized by feature to maintain separation of concerns and scalability.
+
+```text
+shopsphere/
+├── app/                  # Expo Router file-based routing
+│   ├── (auth)/           # Authentication flow screens
+│   ├── (tabs)/           # Main application tab screens (Home, Cart, Profile, etc.)
+│   ├── category/         # Category-specific routes
+│   ├── product/          # Product detail routes
+│   └── scanner.tsx       # Barcode scanner route
+├── src/
+│   ├── components/       # Reusable UI components grouped by feature (auth, cart, product, etc.)
+│   ├── services/         # External integrations (API, Firebase, Payment, Storage)
+│   ├── store/            # Redux setup, root reducer, and domain slices
+│   ├── screens/          # Screen-level UI implementations mapped to routes
+│   ├── hooks/            # Custom React hooks
+│   └── theme/            # Global styling and theme tokens
+├── assets/               # Static assets, images, and app icons
+├── app.json              # Expo application configuration
+└── eas.json              # Expo Application Services (EAS) build configuration
+```
+
+## Application Flow
+
+1. **Authentication**: Users begin at the `(auth)` flow with an onboarding screen, followed by login or registration.
+2. **Main Navigation**: Once authenticated, users enter the `(tabs)` flow consisting of:
+   - **Home**: Product highlights and search.
+   - **Categories**: Browse products by domain.
+   - **Cart**: Review selected items.
+   - **Wishlist**: View saved favorites.
+   - **Chat**: Real-time customer support.
+   - **Profile**: Account management.
+3. **Standalone Screens**: Users can navigate to specific product details (`/product/[id]`), category lists (`/category/[id]`), or use the barcode scanner (`/scanner`).
+
+## State Management & Data Layer
+
+- **Redux Toolkit**: Centralized state management utilizing domain-specific slices (`authSlice`, `cartSlice`, `wishlistSlice`).
+- **Persistence**: Application state (like cart and wishlist items) is persisted locally using redux-persist and @react-native-async-storage/async-storage, allowing state to be retained between app sessions.
+- **API Integration**: RESTful API communication is handled through custom Axios instances configured within the `services/api` directory.
+
+## Development Status
+
+- **Completed**: Core application architecture, Expo Router navigation, Redux state management (with persistence), authentication flows, UI components for major tabs, and barcode scanning integration.
+- **Active Development**: Ongoing refinement of the checkout flow (Stripe), real-time chat polish, and final API integrations for live product data.
+- **Deployment**: Configured for Expo Application Services (EAS) for internal development and preview builds, but not yet published to public App/Play Stores.
+
+## Running Locally
+
+To run the project locally on your machine:
+
+1. **Clone the repository and install dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Environment Variables:**
+   Ensure your `.env` file is present in the root directory and populated with the necessary keys (Firebase config, Stripe publishable key, API URLs).
 
+3. **Start the Expo development server:**
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+4. Open the app using a development build, Android Emulator, iOS Simulator, or the Expo Go app by scanning the QR code in your terminal.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Build & Deployment
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+The project is configured to use Expo Application Services (EAS). Build profiles for `development`, `preview`, and `production` are defined in `eas.json`.
 
-## Get a fresh project
-
-When you're ready, run:
-
+To create a build:
 ```bash
-npm run reset-project
+eas build --profile development --platform all
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Engineering Highlights
 
-### Other setup steps
+- **Typed Routing**: Utilizes Expo Router's `typedRoutes` for safer navigation and autocomplete across the app.
+- **Robust Validation**: Enforces strict form validation using Zod schemas with React Hook Form.
+- **Modular Services**: Decoupled external integrations (Firebase, Stripe, API) into dedicated service modules for easier testing and maintainability.
+- **Performance**: Incorporates `react-native-reanimated` for fluid animations and UI interactions.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Author
+**Surendra Kumar M**
