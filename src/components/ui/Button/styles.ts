@@ -5,10 +5,11 @@ export const Container = styled.Pressable<{
   fullWidth: boolean;
   background: string;
   borderColor: string;
-}>(({ height, fullWidth, background, borderColor }) => ({
+  iconOnly: boolean;
+}>(({ theme, height, fullWidth, background, borderColor, iconOnly }) => ({
   height,
 
-  width: fullWidth ? "100%" : "auto",
+  width: iconOnly ? height : fullWidth ? "100%" : undefined,
 
   flexDirection: "row",
 
@@ -16,25 +17,29 @@ export const Container = styled.Pressable<{
 
   alignItems: "center",
 
-  borderRadius: 16,
-
   backgroundColor: background,
 
   borderWidth: 1,
 
   borderColor,
 
-  gap: 8,
+  borderRadius: iconOnly ? height / 2 : theme.radius.md,
 
-  paddingHorizontal: 20,
+  paddingHorizontal: iconOnly ? 0 : theme.spacing.lg,
+
+  paddingVertical: 0,
+
+  opacity: 1,
 }));
 
 export const Loader = styled.ActivityIndicator({});
 
-export const Content = styled.View({
+export const Content = styled.View(({ theme }) => ({
   flexDirection: "row",
 
   alignItems: "center",
 
-  gap: 8,
-});
+  justifyContent: "center",
+
+  gap: theme.spacing.sm,
+}));

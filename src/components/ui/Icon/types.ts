@@ -12,3 +12,4 @@ export interface IconProps {
 
   strokeWidth?: number;
 }
+

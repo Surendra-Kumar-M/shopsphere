@@ -1,4 +1,3 @@
-
 import { useTheme } from "@emotion/react";
 
 import { AppText } from "@/components/ui";
@@ -9,21 +8,14 @@ import { ButtonProps, BUTTON_SIZES, BUTTON_VARIANTS } from "./types";
 
 export default function Button({
   title,
-
-  variant = "primary",
-
-  size = "md",
-
-  loading = false,
-
-  disabled = false,
-
-  fullWidth = false,
-
+  icon,
   leftIcon,
-
   rightIcon,
-
+  variant = "primary",
+  size = "md",
+  loading = false,
+  disabled = false,
+  fullWidth = false,
   ...props
 }: ButtonProps) {
   const theme = useTheme();
@@ -38,8 +30,11 @@ export default function Button({
 
   const borderColor = theme.colors[config.border];
 
+  const Icon = icon;
   const LeftIcon = leftIcon;
   const RightIcon = rightIcon;
+
+  const isIconOnly = !!Icon && !title && !LeftIcon && !RightIcon;
 
   return (
     <S.Container
@@ -48,16 +43,21 @@ export default function Button({
       fullWidth={fullWidth}
       height={button.height}
       background={background}
-      borderColor={borderColor}>
+      borderColor={borderColor}
+      iconOnly={isIconOnly}>
       {loading ? (
         <S.Loader color={color} />
       ) : (
         <S.Content>
+          {Icon && <Icon size={button.iconSize} color={color} />}
+
           {LeftIcon && <LeftIcon size={button.iconSize} color={color} />}
 
-          <AppText variant="button" weight="semibold" color={color}>
-            {title}
-          </AppText>
+          {title && (
+            <AppText variant="button" weight="semibold" color={color}>
+              {title}
+            </AppText>
+          )}
 
           {RightIcon && <RightIcon size={button.iconSize} color={color} />}
         </S.Content>

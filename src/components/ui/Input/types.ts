@@ -8,28 +8,78 @@ export type InputSize = "sm" | "md" | "lg";
 export type InputStatus = "default" | "error" | "success";
 
 export interface InputProps extends Omit<TextInputProps, "children"> {
+  /**
+   * Label displayed above the input
+   */
   label?: string;
 
+  /**
+   * Helper text displayed below the input
+   */
   helperText?: string;
 
+  /**
+   * Error message
+   */
   error?: string;
 
+  /**
+   * Visual variant
+   */
   variant?: InputVariant;
 
+  /**
+   * Input size
+   */
   size?: InputSize;
 
+  /**
+   * Validation state
+   */
   status?: InputStatus;
 
+  /**
+   * Left icon
+   */
   leftIcon?: LucideIcon;
 
+  /**
+   * Right icon
+   */
   rightIcon?: LucideIcon;
 
-  fullWidth?: boolean;
+  /**
+   * Left icon press
+   */
+  onLeftIconPress?: () => void;
 
+  /**
+   * Right icon press
+   */
+  onRightIconPress?: () => void;
+
+  /**
+   * Shows loading spinner instead of right icon
+   */
   loading?: boolean;
 
+  /**
+   * Toggle password visibility
+   */
   showPasswordToggle?: boolean;
+
+  /**
+   * Stretch to full width
+   */
+  fullWidth?: boolean;
 }
+
+export interface InputSizeConfig {
+  height: number;
+  fontSize: number;
+  iconSize: number;
+}
+
 
 import { Theme } from "@emotion/react";
 
@@ -53,13 +103,8 @@ export const INPUT_SIZES = {
   },
 } satisfies Record<
   InputSize,
-  {
-    height: number;
-    fontSize: number;
-    iconSize: number;
-  }
+  InputSizeConfig
 >;
-
 export const inputVariants = (theme: Theme) =>
   ({
     outlined: {
@@ -76,3 +121,9 @@ export const inputVariants = (theme: Theme) =>
       errorBorderColor: theme.colors.danger,
     },
   }) satisfies Record<InputVariant, any>;
+export interface InputVariantStyle {
+  backgroundColor: string;
+  borderColor: string;
+  focusedBorderColor: string;
+  errorBorderColor: string;
+}

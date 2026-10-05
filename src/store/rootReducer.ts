@@ -1,10 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { api } from "./api/api";
+
 
 import authReducer from "./slices/authSlice";
 import cartReducer from "./slices/cartSlice";
 import wishlistReducer from "./slices/wishlistSlice";
+import { api } from "@/services/api/api";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
