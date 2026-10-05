@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "shopsphere",
-    "slug": "shopsphere",
+    "slug": "shopsphere-m",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.surendra_kumar_m.shopspherem"
     },
     "web": {
       "output": "static",
@@ -32,11 +33,20 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-image",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f9cdb461-8a82-475d-8c40-be80a579a972"
+      }
+    },
+    "owner": "surendra_kumar_m"
   }
 }
